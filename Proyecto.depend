@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1504588849 source:c:\juegos flash y cosas random\unitec\programacion 3\proyecto\main.cpp
+	<allegro.h>
+	"inicia.h"
+
+1504581390 c:\juegos flash y cosas random\unitec\programacion 3\proyecto\inicia.h
+
+1504589732 source:c:\juegos flash y cosas random\unitec\programacion 3\proyecto\inicia.cpp
+	"inicia.h"
+	<allegro.h>
+
