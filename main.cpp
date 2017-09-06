@@ -4,7 +4,7 @@
 int main()
 {
     inicia_allegro(520, 550);
-    inicia_audio(70,70);
+    inicia_audio(190, 190);
 
     BITMAP *buffer = create_bitmap(520, 550);
 
