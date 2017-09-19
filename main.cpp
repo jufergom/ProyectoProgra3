@@ -34,7 +34,7 @@ void Nave::iniciar(char* ruta_nave, char* ruta_bala)
 
 void Nave::pintar(BITMAP *buffer)
 {
-    masked_blit(img_nave, buffer, 0, 0, x, y, 30, 20);
+    masked_blit(img_nave, buffer, 0, 0, x, y, 40, 30);
 }
 
 void Nave::mover()
