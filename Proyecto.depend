@@ -29,3 +29,21 @@
 	<allegro.h>
 	"inicia.h"
 
+1504902747 source:c:\unitec\programacion 3\tareas\proyecto\inicia.cpp
+	"inicia.h"
+	<allegro.h>
+
+1504902747 c:\unitec\programacion 3\tareas\proyecto\inicia.h
+
+1370112616 source:c:\unitec\programacion 3\tareas\proyecto\disparos.cpp
+	"disparos.h"
+	<allegro.h>
+
+1370112628 c:\unitec\programacion 3\tareas\proyecto\disparos.h
+	<allegro.h>
+
+1505804686 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
+	<allegro.h>
+	"inicia.h"
+	"disparos.h"
+

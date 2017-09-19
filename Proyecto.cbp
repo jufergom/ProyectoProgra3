@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="disparos.cpp" />
+		<Unit filename="disparos.h" />
 		<Unit filename="inicia.cpp">
 			<Option target="Debug" />
 		</Unit>
