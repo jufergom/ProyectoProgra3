@@ -27,8 +27,7 @@ struct Nave
     void mover();
     void disparar(struct Balas disparos[], BITMAP* buffer);
 
-    void acomoda_enemigo(struct Nave enemigos[]);
-     void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer);
+
 
 };
 

@@ -55,27 +55,7 @@ void Nave::disparar(struct Balas disparos[], BITMAP* buffer)
     pintar_bala(n_disparos, max_disparos, disparos, buffer, img_bala, alto_bala, ancho_bala);
     elimina_bala(n_disparos, max_disparos, disparos, ANCHO, ALTO);
 }
-void Nave::acomoda_enemigo(struct Nave enemigos[]){
-    int indice =-1;//>
-    for (int i=0;i<5;i++){
-      for (int j=0;j<11;j++){
-        indice++;
-        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,2);
 
-    }
 
-    }
-}
-void Nave::pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
-    int indice =-1;
-    for (int i=0;i<5;i++){
-      for (int j=0;j<11;j++){
-        indice++;
-        enemigos[indice].pintar(buffer);
-
-    }
-
-    }
-}
 
 
