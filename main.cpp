@@ -6,21 +6,21 @@
 #define ALTO 550
 #define ANCHO 520
 
-
-void jugar(Nave nave, Nave enemigo, BITMAP* buffer)
+Nave llamar;
+void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 {
     Balas disparo[nave.max_disparos];
-    Balas disparo_enemigo[enemigo.max_disparos];
+   // Balas disparo_enemigo[enemigo[0].max_disparos];
     while(!key[KEY_ESC])
     {
         clear_to_color(buffer, 0x000000);
         nave.pintar(buffer);
         nave.mover();
 
-        enemigo.pintar(buffer);
-        enemigo.disparar(disparo_enemigo ,buffer);
-
         nave.disparar(disparo, buffer);
+        llamar.pintar_enemigo(enemigos,buffer);
+
+
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
@@ -62,11 +62,12 @@ int main()
 
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
-    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50);
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2);
 
     //este objeto de tipo nave es el enemigo
-    Nave enemigo;
-    enemigo.iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 50, 80);
+
+    Nave enemigo[30];
+    llamar.acomoda_enemigo(enemigo);
     /*esta variable booleana que esta aqui sirve para saber cuando se va a finalizar
     la ejecucion del programa, practicamente es lo que va a romper el ciclo del juego
     */
@@ -86,7 +87,7 @@ int main()
         {
             blit(Jugar, buffer, 0, 0, 0, 0, ANCHO, ALTO);
             if(mouse_b & 1)
-                jugar(nave, enemigo, buffer);
+                jugar(nave,llamar, buffer);
         }
 
         //Texto de instrucciones

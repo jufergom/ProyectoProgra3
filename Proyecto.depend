@@ -57,3 +57,31 @@
 	<allegro.h>
 	"disparos.h"
 
+1505819705 source:c:\users\jhair\documents\codeblocks\proyecto\inicia.cpp
+	"inicia.h"
+	<allegro.h>
+
+1505819705 c:\users\jhair\documents\codeblocks\proyecto\inicia.h
+
+1505823656 source:c:\users\jhair\documents\codeblocks\proyecto\main.cpp
+	<allegro.h>
+	"inicia.h"
+	"disparos.h"
+	"nave.h"
+
+1505819705 c:\users\jhair\documents\codeblocks\proyecto\disparos.h
+	<allegro.h>
+
+1505823335 c:\users\jhair\documents\codeblocks\proyecto\nave.h
+	<allegro.h>
+	"disparos.h"
+
+1505819705 source:c:\users\jhair\documents\codeblocks\proyecto\disparos.cpp
+	"disparos.h"
+	<allegro.h>
+
+1505823976 source:c:\users\jhair\documents\codeblocks\proyecto\nave.cpp
+	"nave.h"
+	<allegro.h>
+	"disparos.h"
+
