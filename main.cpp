@@ -15,10 +15,67 @@ struct Nave
     BITMAP *img_nave;
     BITMAP *img_bala;
 
-    void iniciar();
-    void pintar();
+    void iniciar(char* ruta_nave, char* ruta_bala);
+    void pintar(BITMAP* buffer);
+    bool temporizador();
     void mover();
 };
+
+void Nave::iniciar(char* ruta_nave, char* ruta_bala)
+{
+    x = ANCHO / 2;
+    y = ALTO - 50;
+    n_disparos = 0;
+    max_disparos = 5;
+    tick = 0;
+    img_nave = load_bitmap(ruta_nave, NULL);
+    img_bala = load_bitmap(ruta_bala, NULL);
+}
+
+void Nave::pintar(BITMAP *buffer)
+{
+    masked_blit(img_nave, buffer, 0, 0, x, y, 30, 20);
+}
+
+void Nave::mover()
+{
+    if(key[KEY_LEFT])
+        x-=1;
+    if(key[KEY_RIGHT])
+        x+=1;
+}
+
+bool Nave::temporizador()
+{
+    tick++;
+    if(tick == 5)
+    {
+        tick = 0;
+        return true;
+    }
+    return false;
+}
+
+void jugar(Nave nave, BITMAP* buffer)
+{
+    Balas disparo[nave.max_disparos];
+
+    while(!key[KEY_ESC])
+    {
+        clear_to_color(buffer, 0x000000);
+        nave.pintar(buffer);
+        nave.mover();
+
+        if(key[KEY_SPACE] && nave.temporizador())
+            crear_bala(nave.n_disparos, nave.max_disparos, disparo, nave.x, nave.y, -2);
+
+        pintar_bala(nave.n_disparos, nave.max_disparos, disparo, buffer, nave.img_bala);
+        elimina_bala(nave.n_disparos, nave.max_disparos, disparo, ANCHO, ALTO);
+
+        //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
+        blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
+    }
+}
 
 int main()
 {
@@ -50,8 +107,13 @@ int main()
     SAMPLE *musica = load_sample("musica.wav");
 
     //aqui vamos a crear los bitmaps de la bala y la nave
-    BITMAP *bala = load_bitmap("Imagenes/Bala2.bmp", NULL);
-    BITMAP *nave = load_bitmap("Imagenes/nave.bmp", NULL);
+    //BITMAP *bala = load_bitmap("Imagenes/Bala2.bmp", NULL);
+    //BITMAP *nave = load_bitmap("Imagenes/nave.bmp", NULL);
+
+    //objeto de tipo nave, viene de la estructura nave
+    Nave nave;
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp");
+
 
     /*esta variable booleana que esta aqui sirve para saber cuando se va a finalizar
     la ejecucion del programa, practicamente es lo que va a romper el ciclo del juego
@@ -69,6 +131,8 @@ int main()
         if(mouse_x > 190 && mouse_x < 331 && mouse_y > 239 && mouse_y < 283)
         {
             blit(Jugar, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+            if(mouse_b & 1)
+                jugar(nave, buffer);
         }
 
         //Texto de instrucciones
