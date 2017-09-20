@@ -14,7 +14,7 @@ void acomoda_enemigo(struct Nave enemigos[]){
     for (int i=0;i<5;i++){
       for (int j=0;j<11;j++){
         indice++;
-        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,2,1);
+        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,1,1);
             }
         }
 }
