@@ -5,7 +5,7 @@
 
 #define ALTO 550
 #define ANCHO 520
-Nave enemigos[30];
+Nave enemigos[10];
 void acomoda_enemigo(struct Nave enemigos[]){
     int indice =-1;//>
     for (int i=0;i<5;i++){
@@ -32,13 +32,16 @@ void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
 
 void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 {
+
     Balas disparo[nave.max_disparos];
+    BITMAP *espacio = load_bitmap("espa.bmp", NULL);
    // Balas disparo_enemigo[enemigo[0].max_disparos];
 
     acomoda_enemigo(enemigos);
     while(!key[KEY_ESC])
     {
         clear_to_color(buffer, 0x000000);
+
         nave.pintar(buffer);
         nave.mover();
 
@@ -80,6 +83,8 @@ int main()
     BITMAP *cursor = load_bitmap("cursor.bmp", NULL);
 
     SAMPLE *musica = load_sample("musica.wav");
+
+
 
     //aqui vamos a crear los bitmaps de la bala y la nave
     //BITMAP *bala = load_bitmap("Imagenes/Bala2.bmp", NULL);
