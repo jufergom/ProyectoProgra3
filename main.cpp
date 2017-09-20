@@ -3,8 +3,8 @@
 #include "disparos.h"
 #include "nave.h"
 
-#define ALTO 600
-#define ANCHO 600
+#define ALTO 550
+#define ANCHO 520
 
 
 void jugar(Nave nave, Nave enemigo, BITMAP* buffer)
