@@ -1,5 +1,7 @@
 #include "disparos.h"
 #include <allegro.h>
+#include <stdlib.h>
+#include <time.h>
 
 void crear_bala(int& n_disparos, const int max_disparos ,struct Balas disparos[] ,
                 const int X, const int Y , const int dy)

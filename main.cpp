@@ -2,20 +2,21 @@
 #include "inicia.h"
 #include "disparos.h"
 #include "nave.h"
-
+#include <stdlib.h>
+#include <time.h>
 #define ALTO 550
 #define ANCHO 520
-Nave enemigos[10];
+
+Nave enemigos[60];
+int azar = rand()%55;//es para los disparos aleatorios
 void acomoda_enemigo(struct Nave enemigos[]){
     int indice =-1;//>
     for (int i=0;i<5;i++){
       for (int j=0;j<11;j++){
         indice++;
-        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,2);
-
-    }
-
-    }
+        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,2,1);
+            }
+        }
 }
 
 void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
@@ -24,9 +25,7 @@ void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
       for (int j=0;j<11;j++){
         indice++;
         enemigos[indice].pintar(buffer);
-
-    }
-
+        }
     }
 }
 
@@ -35,7 +34,7 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
     Balas disparo[nave.max_disparos];
     BITMAP *espacio = load_bitmap("espa.bmp", NULL);
-   // Balas disparo_enemigo[enemigo[0].max_disparos];
+    Balas disparo_enemigo[enemigos[0].max_disparos];
 
     acomoda_enemigo(enemigos);
     while(!key[KEY_ESC])
@@ -44,10 +43,14 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
         nave.pintar(buffer);
         nave.mover();
+        if(key[KEY_SPACE] && nave.temporizador())
+        crear_bala(nave.n_disparos,nave.max_disparos,disparo,nave.x,nave.y,nave.dir_bala);
 
         nave.disparar(disparo, buffer);
-        pintar_enemigo(enemigos,buffer);
 
+        pintar_enemigo(enemigos,buffer);
+        if(enemigos[azar].n_disparos==0)  azar = rand()%55;
+        enemigos[azar].disparar(disparo_enemigo,buffer);
 
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
@@ -57,6 +60,7 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
 int main()
 {
+
     //iniciando allegro
     inicia_allegro(ANCHO, ALTO);
     inicia_audio(190, 190);
@@ -92,9 +96,10 @@ int main()
 
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
-    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2);
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2,0);
 
     //este objeto de tipo nave es el enemigo
+
 
 
     /*esta variable booleana que esta aqui sirve para saber cuando se va a finalizar
