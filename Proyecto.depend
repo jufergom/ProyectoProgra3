@@ -35,15 +35,25 @@
 
 1504902747 c:\unitec\programacion 3\tareas\proyecto\inicia.h
 
-1370112616 source:c:\unitec\programacion 3\tareas\proyecto\disparos.cpp
+1505864628 source:c:\unitec\programacion 3\tareas\proyecto\disparos.cpp
 	"disparos.h"
 	<allegro.h>
 
-1370112628 c:\unitec\programacion 3\tareas\proyecto\disparos.h
+1505864628 c:\unitec\programacion 3\tareas\proyecto\disparos.h
 	<allegro.h>
 
-1505832520 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
+1505872254 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
 	<allegro.h>
 	"inicia.h"
+	"disparos.h"
+	"nave.h"
+
+1505870187 c:\unitec\programacion 3\tareas\proyecto\nave.h
+	<allegro.h>
+	"disparos.h"
+
+1505871232 source:c:\unitec\programacion 3\tareas\proyecto\nave.cpp
+	"nave.h"
+	<allegro.h>
 	"disparos.h"
 

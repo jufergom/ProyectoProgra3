@@ -1,76 +1,26 @@
 #include <allegro.h>
 #include "inicia.h"
 #include "disparos.h"
+#include "nave.h"
 
 #define ALTO 600
 #define ANCHO 600
 
-struct Nave
-{
-    int x, y; //coordenadas
-    int n_disparos;
-    int max_disparos;
-    int tick;
 
-    BITMAP *img_nave;
-    BITMAP *img_bala;
-
-    void iniciar(char* ruta_nave, char* ruta_bala);
-    void pintar(BITMAP* buffer);
-    bool temporizador();
-    void mover();
-};
-
-void Nave::iniciar(char* ruta_nave, char* ruta_bala)
-{
-    x = ANCHO / 2;
-    y = ALTO - 50;
-    n_disparos = 0;
-    max_disparos = 5;
-    tick = 0;
-    img_nave = load_bitmap(ruta_nave, NULL);
-    img_bala = load_bitmap(ruta_bala, NULL);
-}
-
-void Nave::pintar(BITMAP *buffer)
-{
-    masked_blit(img_nave, buffer, 0, 0, x, y, 40, 30);
-}
-
-void Nave::mover()
-{
-    if(key[KEY_LEFT])
-        x-=1;
-    if(key[KEY_RIGHT])
-        x+=1;
-}
-
-bool Nave::temporizador()
-{
-    tick++;
-    if(tick == 5)
-    {
-        tick = 0;
-        return true;
-    }
-    return false;
-}
-
-void jugar(Nave nave, BITMAP* buffer)
+void jugar(Nave nave, Nave enemigo, BITMAP* buffer)
 {
     Balas disparo[nave.max_disparos];
-
+    Balas disparo_enemigo[enemigo.max_disparos];
     while(!key[KEY_ESC])
     {
         clear_to_color(buffer, 0x000000);
         nave.pintar(buffer);
         nave.mover();
 
-        if(key[KEY_SPACE] && nave.temporizador())
-            crear_bala(nave.n_disparos, nave.max_disparos, disparo, nave.x, nave.y, -2);
+        enemigo.pintar(buffer);
+        enemigo.disparar(disparo_enemigo ,buffer);
 
-        pintar_bala(nave.n_disparos, nave.max_disparos, disparo, buffer, nave.img_bala);
-        elimina_bala(nave.n_disparos, nave.max_disparos, disparo, ANCHO, ALTO);
+        nave.disparar(disparo, buffer);
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
@@ -112,9 +62,11 @@ int main()
 
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
-    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp");
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50);
 
-
+    //este objeto de tipo nave es el enemigo
+    Nave enemigo;
+    enemigo.iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 50, 80);
     /*esta variable booleana que esta aqui sirve para saber cuando se va a finalizar
     la ejecucion del programa, practicamente es lo que va a romper el ciclo del juego
     */
@@ -126,13 +78,15 @@ int main()
     int cont = 0; //lo mismo que la anterior
     while(!quit)
     {
+        //limpiar pantalla
+        clear_to_color(buffer, 0x000000);
         //Texto de jugar
         blit(fondo, buffer, 0, 0, 0, 0, ANCHO, ALTO);
         if(mouse_x > 190 && mouse_x < 331 && mouse_y > 239 && mouse_y < 283)
         {
             blit(Jugar, buffer, 0, 0, 0, 0, ANCHO, ALTO);
             if(mouse_b & 1)
-                jugar(nave, buffer);
+                jugar(nave, enemigo, buffer);
         }
 
         //Texto de instrucciones
@@ -150,6 +104,7 @@ int main()
                     //cambiar la imagen de instrucciones
                     if(mouse_x > 100 && mouse_x < 380 && mouse_y > 444 && mouse_y < 510)
                     {
+                        clear_to_color(buffer, 0x000000);
                         blit(Instru2, buffer, 0, 0, 0, 0, ANCHO, ALTO);
                         //aqui regresaremos al menu principal
                         if(mouse_b & 1)

@@ -41,6 +41,12 @@
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="nave.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="nave.h">
+			<Option target="Debug" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
