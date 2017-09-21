@@ -4,8 +4,43 @@
 #include "nave.h"
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+#include <fstream>
 #define ALTO 550
 #define ANCHO 520
+
+using namespace std;
+
+int tamano_registro = 8;
+
+void escribir(std::string nombre_archivo, int numero, int posicion)
+{
+    ofstream out(nombre_archivo.c_str(),ios::in | ios::out);
+    if(!out.is_open())
+    {
+        out.open(nombre_archivo.c_str());
+    }
+    out.seekp(posicion*tamano_registro);
+    out.write((char*)&numero, 4);
+    out.close();
+}
+
+int leer(string nombre_archivo, int posicion)
+{
+  ifstream in(nombre_archivo.c_str());
+  in.seekg(posicion*tamano_registro);
+
+  int numero;//4
+
+  in.read((char*)&numero,4);
+
+  in.close();
+
+  return numero;
+}
+
+int partidas_ganadas;
+int partidas_perdidas;
 
 bool ganar(struct Nave enemigos[])
 {
@@ -110,9 +145,15 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
             explocion2(nave,buffer);
 
         if(ganar(enemigos))
+        {
             quit_game = true;
+            partidas_ganadas++;
+        }
         if(nave.vida == 0)
+        {
+            partidas_perdidas++;
             quit_game = true;
+        }
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
@@ -122,6 +163,11 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
 int main()
 {
+    escribir("partidas", 0, 1);
+    escribir("partidas", 0, 2);
+
+    partidas_ganadas = leer("partidas", 1);
+    partidas_perdidas = leer("partidas", 2);
 
     //iniciando allegro
     inicia_allegro(ANCHO, ALTO);
@@ -227,7 +273,8 @@ int main()
                 while(!(key[KEY_ESC]))
                 {
                     clear_to_color(buffer, 0x000000);
-                    textout_centre_ex(buffer, font, "holis", ANCHO/2, 10, 0xFFFFFF, 0xDF1680);
+                    textout_centre_ex(buffer, font, (char*)&partidas_ganadas, ANCHO/2, 70, 0xFFFFFF, 0xDF1680);
+                    textout_centre_ex(buffer, font, (char*)&partidas_perdidas, ANCHO/2, 90, 0xFFFFFF, 0xDF1680);
                     blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
                 }
             }
@@ -252,6 +299,8 @@ int main()
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
     }
 
+    escribir("partidas", partidas_ganadas, 1);
+    escribir("partidas", partidas_perdidas, 2);
     //destructores
     destroy_bitmap(buffer);
     destroy_bitmap(fondo);
