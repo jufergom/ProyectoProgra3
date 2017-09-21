@@ -50,12 +50,15 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
         nave.disparar(disparo, buffer);
 
         for(int i = 0; i < 60; i++)
-            eliminar_bala_objeto(nave, enemigos[i], disparo);
+            if(eliminar_bala_objeto(nave, enemigos[i], disparo))
+                explocion1(enemigos[i],buffer);
 
         pintar_enemigo(enemigos,buffer);
-        //if(enemigos[azar].n_disparos==0)  azar = rand()%55;
-        //enemigos[azar].disparar(disparo_enemigo,buffer);
+        if(enemigos[azar].n_disparos==0)  azar = rand()%55;
+        enemigos[azar].disparar(disparo_enemigo,buffer);
 
+        if(eliminar_bala_objeto(enemigos[azar],nave,disparo_enemigo))
+            explocion2(nave,buffer);
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
@@ -100,7 +103,7 @@ int main()
 
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
-    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2,0, 3);
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 30, 20, ANCHO/2, ALTO-50,-2,0, 3);
 
     //este objeto de tipo nave es el enemigo
 

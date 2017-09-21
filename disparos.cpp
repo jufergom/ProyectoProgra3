@@ -68,7 +68,7 @@ void elimina_bala(int& n_disparos, const int max_disparos,struct Balas disparos[
 
 }
 
-void eliminar_bala_objeto(struct Nave &nave, struct Nave &enemigo, struct Balas b[])
+bool eliminar_bala_objeto(struct Nave &nave, struct Nave &enemigo, struct Balas b[])
 {
     if ( nave.n_disparos > 0 && nave.n_disparos < nave.max_disparos){
             for ( int cont = 1; cont <= nave.n_disparos; cont++){
@@ -77,8 +77,9 @@ void eliminar_bala_objeto(struct Nave &nave, struct Nave &enemigo, struct Balas 
                             {
                                 eliminar(b, nave.n_disparos, cont);
                                 enemigo.vida--;
+                                return true;
                             }
-            }
+            }return false;
 
     }
 }

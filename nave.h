@@ -4,6 +4,8 @@
 #include <time.h>
 #include <allegro.h>
 #include "disparos.h"
+void explocion1(struct Nave ene,BITMAP *buffer);
+void explocion2(struct Nave N,BITMAP *buffer);
 
 struct Nave
 {
@@ -23,6 +25,9 @@ struct Nave
 
     BITMAP *img_nave;
     BITMAP *img_bala;
+    BITMAP *explo_ene;
+
+
 
     void iniciar(char* ruta_nave, char* ruta_bala, int _ancho_bala, int _alto_bala,
                  int _ancho_personaje, int _alto_personaje, int _x, int _y,int dir_bala,int _tipo, int _vida);
@@ -30,6 +35,9 @@ struct Nave
     bool temporizador();
     void mover();
     void disparar(struct Balas disparos[], BITMAP* buffer);
+
+
+
 
 
 

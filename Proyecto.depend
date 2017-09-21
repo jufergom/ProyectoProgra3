@@ -70,7 +70,7 @@
 
 1505816105 c:\users\jhair\documents\codeblocks\proyecto\inicia.h
 
-1505954868 source:c:\users\jhair\documents\codeblocks\proyecto\main.cpp
+1505979229 source:c:\users\jhair\documents\codeblocks\proyecto\main.cpp
 	<allegro.h>
 	"inicia.h"
 	"disparos.h"
@@ -78,22 +78,24 @@
 	<stdlib.h>
 	<time.h>
 
-1505816105 c:\users\jhair\documents\codeblocks\proyecto\disparos.h
+1505978200 c:\users\jhair\documents\codeblocks\proyecto\disparos.h
 	<allegro.h>
+	"nave.h"
 
-1505947511 c:\users\jhair\documents\codeblocks\proyecto\nave.h
+1505980643 c:\users\jhair\documents\codeblocks\proyecto\nave.h
 	<stdlib.h>
 	<time.h>
 	<allegro.h>
 	"disparos.h"
 
-1505946325 source:c:\users\jhair\documents\codeblocks\proyecto\disparos.cpp
+1505978200 source:c:\users\jhair\documents\codeblocks\proyecto\disparos.cpp
 	"disparos.h"
+	"nave.h"
 	<allegro.h>
 	<stdlib.h>
 	<time.h>
 
-1505959142 source:c:\users\jhair\documents\codeblocks\proyecto\nave.cpp
+1505980280 source:c:\users\jhair\documents\codeblocks\proyecto\nave.cpp
 	"nave.h"
 	<allegro.h>
 	"disparos.h"

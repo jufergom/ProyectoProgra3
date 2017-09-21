@@ -23,6 +23,6 @@ void eliminar(struct Balas disparos[], int &n_disparos, int cont);
 void elimina_bala(int& n_disparos, const int max_disparos,struct Balas disparos[],
                   const int ANCHO, const int ALTO);
 
-void eliminar_bala_objeto(struct Nave &nave, struct Nave &enemigo, struct Balas b[]);
+bool eliminar_bala_objeto(struct Nave &nave, struct Nave &enemigo, struct Balas b[]);
 
 #endif // DISPAROS_H_INCLUDED

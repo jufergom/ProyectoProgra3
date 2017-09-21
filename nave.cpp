@@ -21,6 +21,7 @@ void Nave::iniciar(char* ruta_nave, char* ruta_bala, int _alto_bala, int _ancho_
     dir_bala = _dir_bala;
     tipo = _tipo;
     vida = _vida;
+    explo_ene = load_bitmap("Imagenes/pum_enemigo.bmp",NULL);
 
     img_nave = load_bitmap(ruta_nave, NULL);
     img_bala = load_bitmap(ruta_bala, NULL);
@@ -57,6 +58,28 @@ void Nave::disparar(struct Balas disparos[], BITMAP* buffer)
 
     pintar_bala(n_disparos, max_disparos, disparos, buffer, img_bala, alto_bala, ancho_bala);
     elimina_bala(n_disparos, max_disparos, disparos, ANCHO, ALTO);
+}
+
+void explocion1(struct Nave ene,BITMAP *buffer){
+    BITMAP *parche = create_bitmap(25,20);
+    clear_to_color(parche,0x000000);
+    blit(parche,buffer,0,0,ene.x,ene.y,25,20);
+    masked_blit(ene.explo_ene,buffer,0,0,ene.x-10,ene.y,41,34);
+}
+
+void explocion2(struct Nave N,BITMAP *buffer){
+     BITMAP *parche = create_bitmap(30,20);
+    clear_to_color(parche,0x000000);
+    for(int j=0;j<6;j++){
+        for(int i=1;i<=2;i++){
+            blit(parche,buffer,0,0,N.x,N.y,30,20);
+            masked_blit(N.img_nave,buffer,i*30,0,N.x,N.y,30,20);
+            blit(buffer,screen,0,0,0,0,ANCHO,ALTO);
+            rest(50);
+        }
+
+    }
+
 }
 
 
