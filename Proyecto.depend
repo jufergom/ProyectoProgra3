@@ -29,33 +29,40 @@
 	<allegro.h>
 	"inicia.h"
 
-1504902747 source:c:\unitec\programacion 3\tareas\proyecto\inicia.cpp
+1505952865 source:c:\unitec\programacion 3\tareas\proyecto\inicia.cpp
 	"inicia.h"
 	<allegro.h>
 
-1504902747 c:\unitec\programacion 3\tareas\proyecto\inicia.h
+1505952865 c:\unitec\programacion 3\tareas\proyecto\inicia.h
 
 1505864628 source:c:\unitec\programacion 3\tareas\proyecto\disparos.cpp
 	"disparos.h"
 	<allegro.h>
 
-1505864628 c:\unitec\programacion 3\tareas\proyecto\disparos.h
+1505958228 c:\unitec\programacion 3\tareas\proyecto\disparos.h
 	<allegro.h>
+	"nave.h"
 
-1505872254 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
+1505952865 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
 	<allegro.h>
 	"inicia.h"
 	"disparos.h"
 	"nave.h"
+	<stdlib.h>
+	<time.h>
 
-1505870187 c:\unitec\programacion 3\tareas\proyecto\nave.h
+1505952866 c:\unitec\programacion 3\tareas\proyecto\nave.h
+	<stdlib.h>
+	<time.h>
 	<allegro.h>
 	"disparos.h"
 
-1505871232 source:c:\unitec\programacion 3\tareas\proyecto\nave.cpp
+1505952866 source:c:\unitec\programacion 3\tareas\proyecto\nave.cpp
 	"nave.h"
 	<allegro.h>
 	"disparos.h"
+	<stdlib.h>
+	<time.h>
 
 1505816105 source:c:\users\jhair\documents\codeblocks\proyecto\inicia.cpp
 	"inicia.h"

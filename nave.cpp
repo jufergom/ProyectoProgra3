@@ -7,7 +7,7 @@
 #define ANCHO 600
 int dir_bala;
 void Nave::iniciar(char* ruta_nave, char* ruta_bala, int _alto_bala, int _ancho_bala,
-                   int _ancho_personaje, int _alto_personaje, int _x, int _y,int _dir_bala,int _tipo)
+                   int _ancho_personaje, int _alto_personaje, int _x, int _y,int _dir_bala,int _tipo, int _vida)
 {
     x = _x;
     y = _y;
@@ -20,6 +20,7 @@ void Nave::iniciar(char* ruta_nave, char* ruta_bala, int _alto_bala, int _ancho_
     alto_personaje = _alto_personaje;
     dir_bala = _dir_bala;
     tipo = _tipo;
+    vida = _vida;
 
     img_nave = load_bitmap(ruta_nave, NULL);
     img_bala = load_bitmap(ruta_bala, NULL);
