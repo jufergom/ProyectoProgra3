@@ -7,6 +7,16 @@
 #define ALTO 550
 #define ANCHO 520
 
+bool ganar(struct Nave enemigos[])
+{
+    for(int i = 0; i < 60; i++)
+    {
+        if(enemigos[i].vida != 0)
+            return false;
+    }
+    return true;
+}
+
 bool limites(struct Nave enemigos[], int &dir)
 {
     for(int i = 0; i < 60; i++)
@@ -73,7 +83,8 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
     Balas disparo_enemigo[enemigos[0].max_disparos];
 
     acomoda_enemigo(enemigos);
-    while(!key[KEY_ESC])
+    bool quit_game = false;
+    while(!(key[KEY_ESC] || quit_game))
     {
         clear_to_color(buffer, 0x000000);
 
@@ -98,10 +109,17 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
         if(eliminar_bala_objeto(enemigos[azar],nave,disparo_enemigo))
             explocion2(nave,buffer);
 
+        if(ganar(enemigos))
+            quit_game = true;
+        if(nave.vida == 0)
+            quit_game = true;
+
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
     }
 }
+
+
 
 int main()
 {
