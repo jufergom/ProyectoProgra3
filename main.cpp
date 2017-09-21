@@ -15,7 +15,7 @@ int tamano_registro = 8;
 
 void escribir(std::string nombre_archivo, int numero, int posicion)
 {
-    ofstream out(nombre_archivo.c_str(),ios::in | ios::out);
+    ofstream out(nombre_archivo.c_str());
     if(!out.is_open())
     {
         out.open(nombre_archivo.c_str());
@@ -65,18 +65,21 @@ bool limites(struct Nave enemigos[], int &dir)
     return false;
 }
 
-Nave enemigos[60];
+Nave enemigosf [30];
+Nave enemigos[45];
+Nave enemigosd [60];
+//Nave enemigosd [60];
 int azar = rand()%55;//es para los disparos aleatorios
 int mov = 0;
 int dir = -5;
 int velocidad_juego = 40;
 
-void acomoda_enemigo(struct Nave enemigos[]){
+void acomoda_enemigo(struct Nave enemigos[], int opcion){
     int indice =-1;//>
     for (int i=0;i<5;i++){
       for (int j=0;j<11;j++){
         indice++;
-        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,1,1, 1);
+        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,1,1, opcion);
             }
         }
 }
@@ -110,14 +113,14 @@ void mover_enemigos(struct Nave enemigos[], int &mov, int &dir)
     }
 }
 
-void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
+void jugar(Nave nave,Nave enemigos[], BITMAP* buffer, BITMAP* g, BITMAP* p, int opcion)
 {
 
     Balas disparo[nave.max_disparos];
     BITMAP *espacio = load_bitmap("espa.bmp", NULL);
     Balas disparo_enemigo[enemigos[0].max_disparos];
 
-    acomoda_enemigo(enemigos);
+    acomoda_enemigo(enemigos, opcion);
     bool quit_game = false;
     while(!(key[KEY_ESC] || quit_game))
     {
@@ -146,11 +149,23 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
         if(ganar(enemigos))
         {
+            while(!key[KEY_ESC])
+            {
+                clear_to_color(buffer, 0x000000);
+                blit(g, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
+            }
             quit_game = true;
             partidas_ganadas++;
         }
         if(nave.vida == 0)
         {
+            while(!key[KEY_ESC])
+            {
+                clear_to_color(buffer, 0x000000);
+                blit(p, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
+            }
             partidas_perdidas++;
             quit_game = true;
         }
@@ -163,8 +178,10 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
 int main()
 {
-    escribir("partidas", 0, 1);
-    escribir("partidas", 0, 2);
+    //escribir("partidas", 0, 1);
+    //escribir("partidas", 0, 2);
+    partidas_ganadas = 0;
+    partidas_perdidas = 0;
 
     partidas_ganadas = leer("partidas", 1);
     partidas_perdidas = leer("partidas", 2);
@@ -192,7 +209,19 @@ int main()
 
     BITMAP *Instru2 = load_bitmap("Instru2.bmp", NULL);
 
+    BITMAP *Dificultades = load_bitmap("Imagenes/regre2.bmp", NULL);
+
+    BITMAP *facil = load_bitmap("Imagenes/facil.bmp", NULL);
+
+    BITMAP *medio = load_bitmap("Imagenes/normal.bmp", NULL);
+
+    BITMAP *dificil = load_bitmap("Imagenes/dificil.bmp", NULL);
+
+    BITMAP *Atras2 = load_bitmap("Imagenes/atras.bmp", NULL);
+
     BITMAP *cursor = load_bitmap("cursor.bmp", NULL);
+    BITMAP *ganamos = load_bitmap("Imagenes/ganar.bmp", NULL);
+    BITMAP *perdimos = load_bitmap("Imagenes/perdiste.bmp", NULL);
 
     SAMPLE *musica = load_sample("musica.wav");
 
@@ -219,6 +248,7 @@ int main()
 
     int recien_salido = 0; //variable para controlar tiempos en el menu
     int cont = 0; //lo mismo que la anterior
+
     while(!quit)
     {
         //limpiar pantalla
@@ -229,7 +259,43 @@ int main()
         {
             blit(Jugar, buffer, 0, 0, 0, 0, ANCHO, ALTO);
             if(mouse_b & 1)
-                jugar(nave,enemigos, buffer);
+            {
+                bool escape = false;
+                while(!(key[KEY_ESC] || escape))
+                {
+                    clear_to_color(buffer, 0x000000);
+                    blit(Dificultades, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+
+                    if(mouse_x > 176 && mouse_x < 328 && mouse_y > 160 && mouse_y < 233){
+                        blit(facil, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                         if(mouse_b & 2)
+                                jugar(nave,enemigosf,buffer,ganamos,perdimos, 1);
+                    }
+
+                    if(mouse_x > 152 && mouse_x < 350 && mouse_y > 239 && mouse_y < 313){
+                        blit(medio, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                         if(mouse_b & 2)
+                                jugar(nave,enemigos,buffer,ganamos,perdimos, 2);
+                    }
+
+                    if(mouse_x > 188 && mouse_x < 325 && mouse_y > 338 && mouse_y < 383){
+                        blit(dificil, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                         if(mouse_b & 2)
+                                jugar(nave,enemigosd,buffer,ganamos,perdimos, 3);
+                    }
+
+                    if(mouse_x > 333 && mouse_x < 464 && mouse_y > 480 && mouse_y < 523){
+                        blit(Atras2, buffer, 0, 0, 0, 0, ANCHO, ALTO);
+                         if(mouse_b & 2)
+                                escape = true;
+                    }
+
+                    masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
+                    blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
+
+                }
+            }
+                //jugar(nave,enemigos, buffer, ganamos, perdimos);
         }
 
         //Texto de instrucciones
@@ -273,8 +339,12 @@ int main()
                 while(!(key[KEY_ESC]))
                 {
                     clear_to_color(buffer, 0x000000);
-                    textout_centre_ex(buffer, font, (char*)&partidas_ganadas, ANCHO/2, 70, 0xFFFFFF, 0xDF1680);
-                    textout_centre_ex(buffer, font, (char*)&partidas_perdidas, ANCHO/2, 90, 0xFFFFFF, 0xDF1680);
+                    textprintf(buffer, font, 20, 90, makecol(255, 0, 0), "Partidas ganadas: %d",  partidas_ganadas);
+                    textprintf(buffer, font, 20, 110, makecol(255, 0, 0), "Partidas perdidas: %d",  partidas_perdidas);
+
+
+                    //textout_centre_ex(buffer, font, (char*)&partidas_ganadas, ANCHO/2, 70, 0xFFFFFF, 0xDF1680);
+                    //textout_centre_ex(buffer, font, (char*)&partidas_perdidas, ANCHO/2, 90, 0xFFFFFF, 0xDF1680);
                     blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
                 }
             }
