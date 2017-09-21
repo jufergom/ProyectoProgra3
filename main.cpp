@@ -173,6 +173,7 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer, BITMAP* g, BITMAP* p, int 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
     }
+    destroy_bitmap(espacio);
 }
 
 
@@ -374,6 +375,15 @@ int main()
     //destructores
     destroy_bitmap(buffer);
     destroy_bitmap(fondo);
+    destroy_bitmap(Jugar);
+    destroy_bitmap(Instrucciones);
+    destroy_bitmap(Instru);
+    destroy_bitmap(Instru2);
+    destroy_bitmap(Dificultades);
+    destroy_bitmap(facil);
+    destroy_bitmap(medio);
+    destroy_bitmap(dificil);
+    destroy_bitmap(Atras2);
     destroy_sample(musica);
     return 0;
 }

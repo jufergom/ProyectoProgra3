@@ -84,7 +84,3 @@ void explocion2(struct Nave N,BITMAP *buffer){
     }
 
 }
-
-
-
-
