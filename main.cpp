@@ -15,7 +15,7 @@ int tamano_registro = 8;
 
 void escribir(std::string nombre_archivo, int numero, int posicion)
 {
-    ofstream out(nombre_archivo.c_str());
+    ofstream out(nombre_archivo.c_str(), ios::in | ios::out);
     if(!out.is_open())
     {
         out.open(nombre_archivo.c_str());
@@ -179,13 +179,8 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer, BITMAP* g, BITMAP* p, int 
 
 int main()
 {
-    //escribir("partidas", 0, 1);
-    //escribir("partidas", 0, 2);
-    partidas_ganadas = 0;
-    partidas_perdidas = 0;
-
-    partidas_ganadas = leer("partidas", 1);
-    partidas_perdidas = leer("partidas", 2);
+    partidas_ganadas = leer("partidas", 3);
+    partidas_perdidas = leer("partidas", 4);
 
     //iniciando allegro
     inicia_allegro(ANCHO, ALTO);
@@ -370,8 +365,8 @@ int main()
         blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
     }
 
-    escribir("partidas", partidas_ganadas, 1);
-    escribir("partidas", partidas_perdidas, 2);
+    escribir("partidas", partidas_ganadas, 3);
+    escribir("partidas", partidas_perdidas, 4);
     //destructores
     destroy_bitmap(buffer);
     destroy_bitmap(fondo);
