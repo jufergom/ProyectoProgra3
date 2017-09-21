@@ -120,7 +120,6 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 }
 
 
-
 int main()
 {
 
@@ -224,7 +223,14 @@ int main()
         {
             blit(Scores, buffer, 0, 0, 0, 0, ANCHO, ALTO);
             if(mouse_b & 1)
-                quit = true;
+            {
+                while(!(key[KEY_ESC]))
+                {
+                    clear_to_color(buffer, 0x000000);
+                    textout_centre_ex(buffer, font, "holis", ANCHO/2, 10, 0xFFFFFF, 0xDF1680);
+                    blit(buffer, screen, 0, 0, 0, 0, ANCHO, ALTO);
+                }
+            }
         }
 
         //Texto de salir
