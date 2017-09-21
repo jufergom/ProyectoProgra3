@@ -32,7 +32,7 @@ struct Nave
     void iniciar(char* ruta_nave, char* ruta_bala, int _ancho_bala, int _alto_bala,
                  int _ancho_personaje, int _alto_personaje, int _x, int _y,int dir_bala,int _tipo, int _vida);
     void pintar(BITMAP* buffer);
-    bool temporizador();
+    bool temporizador(int tiempo);
     void mover();
     void disparar(struct Balas disparos[], BITMAP* buffer);
 

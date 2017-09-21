@@ -6,6 +6,9 @@
 #define ALTO 600
 #define ANCHO 600
 int dir_bala;
+
+
+
 void Nave::iniciar(char* ruta_nave, char* ruta_bala, int _alto_bala, int _ancho_bala,
                    int _ancho_personaje, int _alto_personaje, int _x, int _y,int _dir_bala,int _tipo, int _vida)
 {
@@ -40,10 +43,10 @@ void Nave::mover()
         x+=1;
 }
 
-bool Nave::temporizador()
+bool Nave::temporizador(int tiempo)
 {
     tick++;
-    if(tick == 5)
+    if(tick == tiempo)
     {
         tick = 0;
         return true;

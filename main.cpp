@@ -7,8 +7,25 @@
 #define ALTO 550
 #define ANCHO 520
 
+bool limites(struct Nave enemigos[], int &dir)
+{
+    for(int i = 0; i < 60; i++)
+    {
+        if((enemigos[i].x > 520 || enemigos[i].x < 50) && enemigos[i].vida)
+        {
+            dir = -1 * dir;
+            return true;
+        }
+    }
+    return false;
+}
+
 Nave enemigos[60];
 int azar = rand()%55;//es para los disparos aleatorios
+int mov = 0;
+int dir = -5;
+int velocidad_juego = 40;
+
 void acomoda_enemigo(struct Nave enemigos[]){
     int indice =-1;//>
     for (int i=0;i<5;i++){
@@ -30,6 +47,24 @@ void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
     }
 }
 
+void mover_enemigos(struct Nave enemigos[], int &mov, int &dir)
+{
+    for(int i = 0; i < 55; i++)
+    {
+        enemigos[i].x += dir;
+    }
+    if(++mov == 2)
+        mov = 0;
+
+    if(limites(enemigos, dir))
+    {
+        for(int j = 0; j < 60; j++)
+        {
+            enemigos[j].y += 10;
+        }
+    }
+}
+
 void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 {
 
@@ -42,9 +77,12 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
     {
         clear_to_color(buffer, 0x000000);
 
+        if(enemigos[0].temporizador(velocidad_juego))
+            mover_enemigos(enemigos, mov, dir);
+
         nave.pintar(buffer);
         nave.mover();
-        if(key[KEY_SPACE] && nave.temporizador())
+        if(key[KEY_SPACE] && nave.temporizador(velocidad_juego))
         crear_bala(nave.n_disparos,nave.max_disparos,disparo,nave.x,nave.y,nave.dir_bala);
 
         nave.disparar(disparo, buffer);
