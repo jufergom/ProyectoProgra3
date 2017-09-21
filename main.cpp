@@ -14,7 +14,7 @@ void acomoda_enemigo(struct Nave enemigos[]){
     for (int i=0;i<5;i++){
       for (int j=0;j<11;j++){
         indice++;
-        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,1,1);
+        enemigos[indice].iniciar("Imagenes/enemigos.bmp", "Imagenes/Bala_enem.bmp", 6, 12, 25, 20, 140+j*30, 100+i*24,1,1, 1);
             }
         }
 }
@@ -24,7 +24,8 @@ void pintar_enemigo(struct Nave enemigos[],BITMAP*buffer){
     for (int i=0;i<5;i++){
       for (int j=0;j<11;j++){
         indice++;
-        enemigos[indice].pintar(buffer);
+        if(enemigos[indice].vida != 0)
+            enemigos[indice].pintar(buffer);
         }
     }
 }
@@ -48,9 +49,12 @@ void jugar(Nave nave,Nave enemigos[], BITMAP* buffer)
 
         nave.disparar(disparo, buffer);
 
+        for(int i = 0; i < 60; i++)
+            eliminar_bala_objeto(nave, enemigos[i], disparo);
+
         pintar_enemigo(enemigos,buffer);
-        if(enemigos[azar].n_disparos==0)  azar = rand()%55;
-        enemigos[azar].disparar(disparo_enemigo,buffer);
+        //if(enemigos[azar].n_disparos==0)  azar = rand()%55;
+        //enemigos[azar].disparar(disparo_enemigo,buffer);
 
 
         //masked_blit(cursor, buffer, 0, 0, mouse_x, mouse_y, 13, 22);
@@ -96,7 +100,7 @@ int main()
 
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
-    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2,0);
+    nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 40, 30, ANCHO/2, ALTO-50,-2,0, 3);
 
     //este objeto de tipo nave es el enemigo
 

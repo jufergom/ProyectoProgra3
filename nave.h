@@ -19,11 +19,13 @@ struct Nave
     int alto_personaje;
     int dir_bala;
     int tipo;
+    int vida;
+
     BITMAP *img_nave;
     BITMAP *img_bala;
 
     void iniciar(char* ruta_nave, char* ruta_bala, int _ancho_bala, int _alto_bala,
-                 int _ancho_personaje, int _alto_personaje, int _x, int _y,int dir_bala,int _tipo);
+                 int _ancho_personaje, int _alto_personaje, int _x, int _y,int dir_bala,int _tipo, int _vida);
     void pintar(BITMAP* buffer);
     bool temporizador();
     void mover();
