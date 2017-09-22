@@ -36,11 +36,6 @@ struct Nave
     void mover();
     void disparar(struct Balas disparos[], BITMAP* buffer);
 
-
-
-
-
-
 };
 
 #endif // NAVE_H_INCLUDED

@@ -11,9 +11,20 @@
 
 using namespace std;
 
+//tamaño del archivo binario
 int tamano_registro = 8;
 
-void escribir(std::string nombre_archivo, int numero, int posicion)
+int partidas_ganadas;
+int partidas_perdidas;
+
+Nave enemigos[60];
+
+int azar = rand()%55;//es para los disparos aleatorios
+int mov = 0;
+int dir = -5;
+int velocidad_juego = 40;
+
+void escribir(string nombre_archivo, int numero, int posicion)
 {
     ofstream out(nombre_archivo.c_str(), ios::in | ios::out);
     if(!out.is_open())
@@ -39,9 +50,6 @@ int leer(string nombre_archivo, int posicion)
   return numero;
 }
 
-int partidas_ganadas;
-int partidas_perdidas;
-
 bool ganar(struct Nave enemigos[])
 {
     for(int i = 0; i < 60; i++)
@@ -64,15 +72,6 @@ bool limites(struct Nave enemigos[], int &dir)
     }
     return false;
 }
-
-Nave enemigosf [30];
-Nave enemigos[45];
-Nave enemigosd [60];
-//Nave enemigosd [60];
-int azar = rand()%55;//es para los disparos aleatorios
-int mov = 0;
-int dir = -5;
-int velocidad_juego = 40;
 
 void acomoda_enemigo(struct Nave enemigos[], int opcion){
     int indice =-1;//>
@@ -113,9 +112,9 @@ void mover_enemigos(struct Nave enemigos[], int &mov, int &dir)
     }
 }
 
+//el atributo opcion manipula la vida de los enemigos
 void jugar(Nave nave,Nave enemigos[], BITMAP* buffer, BITMAP* g, BITMAP* p, int opcion)
 {
-
     Balas disparo[nave.max_disparos];
     BITMAP *espacio = load_bitmap("espa.bmp", NULL);
     Balas disparo_enemigo[enemigos[0].max_disparos];
@@ -221,19 +220,9 @@ int main()
 
     SAMPLE *musica = load_sample("musica.wav");
 
-
-
-    //aqui vamos a crear los bitmaps de la bala y la nave
-    //BITMAP *bala = load_bitmap("Imagenes/Bala2.bmp", NULL);
-    //BITMAP *nave = load_bitmap("Imagenes/nave.bmp", NULL);
-
     //objeto de tipo nave, viene de la estructura nave
     Nave nave;
     nave.iniciar("Imagenes/nave.bmp", "Imagenes/Bala2.bmp", 6, 12, 30, 20, ANCHO/2, ALTO-50,-2,0, 3);
-
-    //este objeto de tipo nave es el enemigo
-
-
 
     /*esta variable booleana que esta aqui sirve para saber cuando se va a finalizar
     la ejecucion del programa, practicamente es lo que va a romper el ciclo del juego
@@ -265,7 +254,7 @@ int main()
                     if(mouse_x > 176 && mouse_x < 328 && mouse_y > 160 && mouse_y < 233){
                         blit(facil, buffer, 0, 0, 0, 0, ANCHO, ALTO);
                          if(mouse_b & 2)
-                                jugar(nave,enemigosf,buffer,ganamos,perdimos, 1);
+                                jugar(nave,enemigos,buffer,ganamos,perdimos, 1);
                     }
 
                     if(mouse_x > 152 && mouse_x < 350 && mouse_y > 239 && mouse_y < 313){
@@ -277,7 +266,7 @@ int main()
                     if(mouse_x > 188 && mouse_x < 325 && mouse_y > 338 && mouse_y < 383){
                         blit(dificil, buffer, 0, 0, 0, 0, ANCHO, ALTO);
                          if(mouse_b & 2)
-                                jugar(nave,enemigosd,buffer,ganamos,perdimos, 3);
+                                jugar(nave,enemigos,buffer,ganamos,perdimos, 3);
                     }
 
                     if(mouse_x > 333 && mouse_x < 464 && mouse_y > 480 && mouse_y < 523){
@@ -291,7 +280,6 @@ int main()
 
                 }
             }
-                //jugar(nave,enemigos, buffer, ganamos, perdimos);
         }
 
         //Texto de instrucciones
@@ -379,7 +367,11 @@ int main()
     destroy_bitmap(medio);
     destroy_bitmap(dificil);
     destroy_bitmap(Atras2);
+    destroy_bitmap(cursor);
+    destroy_bitmap(ganamos);
+    destroy_bitmap(perdimos);
     destroy_sample(musica);
+
     return 0;
 }
 END_OF_MAIN () //siempre colocar esto

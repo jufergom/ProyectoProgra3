@@ -46,7 +46,7 @@
 	<allegro.h>
 	"nave.h"
 
-1506005218 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
+1506096251 source:c:\unitec\programacion 3\tareas\proyecto\main.cpp
 	<allegro.h>
 	"inicia.h"
 	"disparos.h"
@@ -56,13 +56,13 @@
 	<iostream>
 	<fstream>
 
-1505986005 c:\unitec\programacion 3\tareas\proyecto\nave.h
+1506096251 c:\unitec\programacion 3\tareas\proyecto\nave.h
 	<stdlib.h>
 	<time.h>
 	<allegro.h>
 	"disparos.h"
 
-1506002232 source:c:\unitec\programacion 3\tareas\proyecto\nave.cpp
+1506096251 source:c:\unitec\programacion 3\tareas\proyecto\nave.cpp
 	"nave.h"
 	<allegro.h>
 	"disparos.h"
